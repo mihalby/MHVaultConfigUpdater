@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docs/README.md" />
+  </Folder>
   <Project Path="MHVaultConfig/MHVaultConfig.csproj" />
 </Solution>

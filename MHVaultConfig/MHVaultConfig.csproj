@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="VaultSharp" Version="1.17.5.1" />
 	<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	<None Include="docs\README.md" Pack="true" PackagePath="\" />
+	<None Include="..\docs\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
