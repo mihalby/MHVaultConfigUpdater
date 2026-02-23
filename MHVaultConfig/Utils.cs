@@ -27,10 +27,7 @@ namespace MHVaultConfig
         public static async Task<Secret<SecretData>> GetSecret(string pt, string mp, string roleIdEnvName, string secretIdEnvName, string vaultAddrEnvName, string vaultHttpClientName,
             IHttpClientFactory _httpClientFactory)
         {
-            //var roleIdEnvName = _configuration.GetValue<string>("Vault:roleIdEnv");
-            //var secretIdEnvName = _configuration.GetValue<string>("Vault:secretIdEnv");
-            //var vaultAddrEnvName = _configuration.GetValue<string>("Vault:addrEnv");
-            //var vaultHttpClientName = _configuration.GetValue<string>("Vault:httpClientName");
+           
 
             var roleId = Environment.GetEnvironmentVariable(roleIdEnvName);
             var secretId = Environment.GetEnvironmentVariable(secretIdEnvName);

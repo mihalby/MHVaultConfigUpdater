@@ -57,60 +57,7 @@ namespace MHVaultConfig
             while (await timer.WaitForNextTickAsync(stoppingToken));
         }
 
-        /*
-        private async Task<Secret<SecretData>> GetSecret(string pt, string mp)
-        {
-            var roleIdEnvName = _configuration.GetValue<string>("Vault:roleIdEnv");
-            var secretIdEnvName = _configuration.GetValue<string>("Vault:secretIdEnv");
-            var vaultAddrEnvName = _configuration.GetValue<string>("Vault:addrEnv");
-            var vaultHttpClientName = _configuration.GetValue<string>("Vault:httpClientName");
-
-            var roleId = Environment.GetEnvironmentVariable(roleIdEnvName);
-            var secretId = Environment.GetEnvironmentVariable(secretIdEnvName);
-            var vaultAddress = Environment.GetEnvironmentVariable(vaultAddrEnvName);
-
-            var authMethod = new AppRoleAuthMethodInfo(roleId, secretId);
-
-            var vaultClientSettings = new VaultClientSettings(vaultAddress, authMethod)
-            {
-                MyHttpClientProviderFunc = _ => vaultHttpClientName != null ? _httpClientFactory.CreateClient(vaultHttpClientName) : _httpClientFactory.CreateClient()
-            };
-
-            var vaultClient = new VaultClient(vaultClientSettings);
-
-            try
-            {
-
-                var secret = await vaultClient.V1.Secrets.KeyValue.V2
-                        .ReadSecretAsync(
-                            path: pt,
-                            mountPoint: mp
-                            );
-
-                return secret;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-
-
-        }
-        
-
-        private IConfiguration BuildConfiguration(Secret<SecretData> secret)
-        {
-            jsonConfig = JsonSerializer.Serialize(secret.Data.Data);
-            Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonConfig));
-            cfg = new ConfigurationBuilder()
-                .AddJsonStream(stream)
-                .Build();
-
-
-            return cfg;
-        }
-        */
+       
 
         private async Task<Dictionary<string, string?>> UpdateConfig()
         {
