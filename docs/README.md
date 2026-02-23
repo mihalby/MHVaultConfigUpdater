@@ -9,7 +9,7 @@ It integrates with `WebApplicationBuilder` and injects keys stored from vault di
 ## Features
 
 - Loads(adding or replace) keys(secrets) from HashiCorp Vault into application configuration
-- AppRole authentication
+- HashiCorp Vault AppRole authentication
 - Seamless integration with ASP.NET Core configuration
 - Environment variable support
 - Supports hierarchical configuration keys
@@ -21,10 +21,10 @@ dotnet add package MFSys.MHVaultConfig
 ```
 
 ## Required Setup
-**Application configuration must contains section "vault"**
+**Application configuration must contains section "Vault"**
 ```
 "Vault": {
-  "path": "sqlexecutor/config",
+  "path": "youapp/config",
   "mountPoint": "mfsys-secret",
   "httpClientName": "VaultClient",
   "roleIdEnv": "YOUSYS_VAULT_ROLE_ID",
