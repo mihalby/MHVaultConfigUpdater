@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Text;
-using System.Text.Json;
-using VaultSharp;
-using VaultSharp.V1.AuthMethods.AppRole;
-using VaultSharp.V1.Commons;
+using System.Runtime.CompilerServices;
+
 
 namespace MHVaultConfig.Extensions
 {
@@ -34,5 +28,28 @@ namespace MHVaultConfig.Extensions
         }
     }
 
-    
+    public static class HostBuilderExtensions
+    {
+        public static IHostBuilder AddMHVaultConfigOnce(this IHostBuilder hostBuilder, bool skipSSL=false)
+        {
+
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback =
+                            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+
+            var httpClient = skipSSL ? new HttpClient(handler) : new HttpClient();
+
+            hostBuilder.ConfigureHostConfiguration(configurationBuilder => {
+                var configuration = configurationBuilder.Build();
+                var source = new MHVaultConfigurationSource(configuration, httpClient);
+                configurationBuilder.Sources.Add(source);
+            });
+
+            return hostBuilder;
+        }
+    }
+
+
 }

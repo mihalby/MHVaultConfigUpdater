@@ -1,7 +1,7 @@
 # MFSys.MHVaultConfig
 
-`MFSys.MHVaultConfig` is an ASP.NET Core configuration provider that loads application configuration values directly from HashiCorp Vault.
-Now using only **AppRole authentication**.
+`MFSys.MHVaultConfig` is an ASP.NET Core configuration provider that loads .NET core application configuration values directly from HashiCorp Vault.
+Now using only **AppRole authentication** for HashiCorp Vault.
 
 It integrates with `WebApplicationBuilder` and injects keys stored from vault directly into the standard `IConfiguration` pipeline.
 ---
@@ -9,6 +9,7 @@ It integrates with `WebApplicationBuilder` and injects keys stored from vault di
 ## Features
 
 - Loads(adding or replace) keys(secrets) from HashiCorp Vault into application configuration
+**for WebApplicationBuilder use extension AddMHVaultConfig, for IHostBuilder use extension AddMHVaultConfigOnce(read keys only one time)**
 - HashiCorp Vault AppRole authentication
 - Seamless integration with ASP.NET Core configuration
 - Environment variable support
@@ -48,6 +49,7 @@ export YOUSYS_VAULT_URL=https://localhost:8200
 export YOUSYS_VAULT_ROLE_ID=your-role-id
 export YOUSYS_VAULT_SECRET_ID=your-secret-id
 ```
+HashiCorp vaults - json
 
 ## Example use
 
@@ -80,7 +82,7 @@ export YOUSYS_VAULT_ROLE_ID=your-role-id
 export YOUSYS_VAULT_SECRET_ID=your-secret-id
 ```
 
-c# code
+c# code for WebApplication
 ```c#
 var builder = WebApplication.CreateBuilder(args);
 
@@ -127,4 +129,38 @@ builder.Services.AddHttpClient("VaultClient").ConfigurePrimaryHttpMessageHandler
 });
 //use extension
 builder.AddMHVaultConfig();
+```
+c# code for IHostBuilder
+```
+ public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+               .ConfigureLogging((ctx, cfg) => cfg.ClearProviders())
+               .ConfigureHostConfiguration(cfg => {
+                   cfg.SetBasePath(Directory.GetCurrentDirectory());
+                   cfg.AddJsonFile(Path.Combine(AppContext.BaseDirectory, "cfg", "settings.json"), optional: false, reloadOnChange: true);
+                })
+               .AddMHVaultConfigOnce(skipSSL:true)
+               ...
+```
+
+## HashiCorp vault secret example
+
+```
+{
+  "ApiSettings": {
+    "ApiKey": "SuperSecretToken123"
+  },
+  "Connections": {
+    "main_pg": {
+      "ConnectionString": "Host=,pg.local;Port=5432;Database=finshop;Username=apiuser;Password=pwd32344",
+      "DbType": "postgres",
+      "TimeOutSec": 30
+    },
+    "react": {
+      "ConnectionString": "TrustServerCertificate=True;workstation id=SUTOR;packet size=4096;data source=ms.local;MultipleActiveResultSets=true;Persist Security Info=False;user id=sqluser;initial catalog=Db1;password=,drtbtrmw",
+      "DbType": "mssql",
+      "TimeOutSec": 60
+    }
+  }
+}
 ```

@@ -17,6 +17,15 @@ namespace MHVaultConfig
 
         }
 
+        public MHVaultConfigurationSource(IConfiguration configuration, HttpClient httpClient)
+        {
+
+            Provider = new(httpClient, configuration);
+
+        }
+
+
+
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
             => Provider;

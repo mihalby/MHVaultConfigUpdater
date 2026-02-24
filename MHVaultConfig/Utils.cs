@@ -28,6 +28,19 @@ namespace MHVaultConfig
             IHttpClientFactory _httpClientFactory)
         {
            
+                        
+            var httpClient = vaultHttpClientName != null ? _httpClientFactory.CreateClient(vaultHttpClientName) : _httpClientFactory.CreateClient();
+
+            return await GetSecret(pt, mp, roleIdEnvName, secretIdEnvName, vaultAddrEnvName, httpClient);
+            
+
+
+        }
+
+        public static async Task<Secret<SecretData>> GetSecret(string pt, string mp, string roleIdEnvName, string secretIdEnvName, string vaultAddrEnvName,
+           HttpClient _httpClient)
+        {
+
 
             var roleId = Environment.GetEnvironmentVariable(roleIdEnvName);
             var secretId = Environment.GetEnvironmentVariable(secretIdEnvName);
@@ -37,7 +50,7 @@ namespace MHVaultConfig
 
             var vaultClientSettings = new VaultClientSettings(vaultAddress, authMethod)
             {
-                MyHttpClientProviderFunc = _ => vaultHttpClientName != null ? _httpClientFactory.CreateClient(vaultHttpClientName) : _httpClientFactory.CreateClient()
+                MyHttpClientProviderFunc = _ => _httpClient
             };
 
             var vaultClient = new VaultClient(vaultClientSettings);

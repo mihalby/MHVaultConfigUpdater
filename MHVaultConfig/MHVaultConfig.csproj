@@ -8,7 +8,7 @@
     <Title>MFSys.MHVaultConfig</Title>
     <Product>MFSys</Product>
     <AssemblyVersion></AssemblyVersion>
-    <Version>1.0.16</Version>
+    <Version>1.0.18</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryUrl>https://github.com/mihalby/MHVaultConfigUpdater</RepositoryUrl>
