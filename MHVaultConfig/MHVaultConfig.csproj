@@ -5,19 +5,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>MFSys.$(AssemblyName)</PackageId>
-    <Title>MFSys.MHVaultConfig</Title>
+    <Title>Get configuration .net core application from HashiCorpVault</Title>
     <Product>MFSys</Product>
     <AssemblyVersion></AssemblyVersion>
-    <Version>1.0.18</Version>
+    <Version>1.0.19</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryUrl>https://github.com/mihalby/MHVaultConfigUpdater</RepositoryUrl>
+	<PackageTags>Vault, Config, ConfigSecrets, HashiCorpVault, MHVault, Secrets</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="VaultSharp" Version="1.17.5.1" />
 	<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	<None Include="..\docs\README.md" Pack="true" PackagePath="\" />
+	<None Include="..\docs\README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>
 
   <ItemGroup>
